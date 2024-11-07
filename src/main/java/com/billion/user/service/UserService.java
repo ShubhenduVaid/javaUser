@@ -30,4 +30,12 @@ public class UserService {
 	public void deleteUser(UUID id) {
 		userRepository.deleteById(id);
 	}
+
+	public Optional<User> getUserByCountryAndId(String country, UUID id) {
+		return userRepository.findByCountryAndId(country, id);
+	}
+
+	public Optional<List<User>> getUserByCountry(String country) {
+		return userRepository.findByCountry(country);
+	}
 }

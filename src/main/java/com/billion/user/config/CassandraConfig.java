@@ -8,7 +8,7 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
 
 	@Override
 	protected String getKeyspaceName() {
-		return "user_schema";  // Your keyspace name
+		return "billion";  // Your keyspace name
 	}
 
 	@Override

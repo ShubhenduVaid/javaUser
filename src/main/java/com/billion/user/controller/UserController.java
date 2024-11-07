@@ -24,10 +24,24 @@ public class UserController {
 		return ResponseEntity.ok(userList);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<User> getUser(@PathVariable UUID id) {
-		Optional<User> user = userService.getUserById(id);
-		return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+//	@GetMapping("/{id}")
+//	public ResponseEntity<User> getUser(@PathVariable UUID id) {
+//		Optional<User> user = userService.getUserById(id);
+//		return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+//	}
+
+	@GetMapping("/{country}/{id}")
+	public ResponseEntity<User> getUserByCountryAndID(@PathVariable String country, @PathVariable UUID id){
+		return userService.getUserByCountryAndId(country, id)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
+	}
+
+	@GetMapping("/{country}")
+	public ResponseEntity<List<User>> getUsersByCountry(@PathVariable String country){
+		return userService.getUserByCountry(country)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
 	}
 
 	@PostMapping
@@ -40,7 +54,8 @@ public class UserController {
 		user.setAddress(userRequest.getAddress());
 		user.setDob(LocalDate.now());
 		user.setPhone(userRequest.getPhone());
-		user.setDateCreated(LocalDateTime.now());
+		user.setCountry(userRequest.getCountry());
+		user.setDate_created(LocalDateTime.now());
 
 		user = userService.saveUser(user);
 		return ResponseEntity.ok(user);
