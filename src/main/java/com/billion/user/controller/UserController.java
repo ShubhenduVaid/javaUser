@@ -45,7 +45,7 @@ public class UserController {
 	}
 
 	@PostMapping
-	public ResponseEntity<User> createBook(@RequestBody User userRequest) {
+	public ResponseEntity<User> createUser(@RequestBody User userRequest) {
 
 		User user = new User();
 		user.setId(UUID.randomUUID());
